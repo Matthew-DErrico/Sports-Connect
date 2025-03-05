@@ -1,29 +1,18 @@
-# Django SaaS Boilerplate (production ready)
-Focus on building your core functionality, skip writing repetitive code. Comes packed with landing page, Payment integration, blog, User model, sitemap and more.
+ # Sports Connect
 
-### Why use Django SaaS boilerplate?
-Using a Django saas boilerplate can save you a lot of time, which is a huge benefit. Most customers don't care if you start from scratch or use a template; they just want their problem solved quickly. Whether you use Django or another framework usually doesn't matter to them as long as the job gets done efficiently.
+**Sports Connect** is a web platform that helps sports enthusiasts connect, find teammates at a matching skill level, and organize games. Whether you're looking for casual play or competitive matches, **Sports Connect** makes it easy to build teams, track skill levels, and foster a thriving sports community.
 
-This boilerplate can help you save hours of work, allowing you to focus on core functionality of your  SaaS instead of spending a lot of time on setting up stripe, blog, login functionalities and landing page.
+---
 
-**#CodeLessShipMore**
+## 🚀 Basic Features
 
-### Want me to help you supercharge your Django SaaS development?
-Contact me [here](https://tally.so/r/woO0Kx)
+- **Skill-Based Matching** – Find players with similar skill levels in your area.  
+- **Team Formation** – Create or join teams for casual games or competitive events.  
+- **Ratings & Reviews** – Leave feedback on teammates and past games.  
+- **Real-Time Communication** – Chat and coordinate with players easily.  
+- **Event Scheduling** – Plan matches and tournaments with automated reminders.  
 
-### Want to help me write more open-source?
-
-Consider buying me a coffee
-
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/L3L612WN7K)
-
-### who is this boilerplate suitable for?
-* Reduce repetitive parts and focus on functionality.
-* For people building an MVP(minimum viable product) and trying to ship as quickly as possible.
-* People looking to learn Django.
-* People who just finished building core functionality and are looking to integrate landing page, blog, payment etc.
-
-### What features does Django template include?
+### What Specific features will this Django Sports Connect website have available to implement?
 - [x] **Production ready**: you can immediately deploy this to cloud such as Vercel, Railway.app, Render.com etc.
 - [x] Comes with a default landing page that you can modify, for more landing pages visit [Awesome landing pages](https://github.com/PaulleDemon/awesome-landing-pages).
 - [x] **Responsive design**: forget about making things responsive yourself, as it includes responsive `base.html`, you can extend from.
@@ -59,30 +48,22 @@ demo123*
 
 For testing stripe check out test cards: https://docs.stripe.com/testing
 
-### Other templates
-**Basic non-saas website template:** [Django boilerplate](https://github.com/PaulleDemon/Django-website-template)
+---
 
-**Free and opensource landing pages:** [Free landing pages](https://github.com/PaulleDemon/awesome-landing-pages)
+## 🛠 Tech Stack
 
-### Table of contents
+| **Technology**  | **Usage** |
+|----------------|----------|
+| Django        | Backend Framework |
+| Python        | Programming Language |
+| PostgreSQL    | Database |
+| Django Templates | Frontend |
+| Git & GitHub  | Version Control |
+| GitHub Projects | Project Management |
 
-- [Why use Django website boilerplate?](#why-use-django-website-boilerplate)
-- [What features does Django template include?](#what-features-does-django-template-include)
+## 📖 Getting Started
 
-- [Demo](#demo)
-
-- [Local development](#local-development)
-  - [Admin superuser](#admin-superuser)
-  - [changing example.com to localhost/yourdomain](#changing-examplecom-to-localhostyourdomain)
-- [Customizing](#customizing)
-  - [Adding title, description to page](#adding-title-description-to-page)
-- [Payment - Stripe](#payment---stripe)
-- [Deployment:](#deployment)
-  - [Create a firebase credential file](#create-a-firebase-credential-file)
-  - [Deploying credential file to production](#deploying-credential-file-to-production)
-- [Tutorials](#tutorials)
-
-## Local development
+### 1️⃣ Local development
 
 follow the below steps :
 1. Star the repo: https://github.com/PaulleDemon/Django-SAAS-Boilerplate
@@ -172,20 +153,20 @@ To create a admin superuser use the following in terminal
 python manage.py createsuperuser
 ```
 
-### changing example.com to localhost/yourdomain
+#### changing example.com to localhost/yourdomain
 If you are sending reset email you may notice its being sent from example.com, inorder to 
 change that you need to go to admin dashboard and from sites, change to your domain
 
 ![site name](demo/images/site-change.png)
 
-## Customizing
+### Customizing
 
 All html, css, js and assets lies inside the templates.
 - To modify the landing page, update `home.html`.
 - To add link to header and footer or modify head tags, check `base.html`.
 - extend `base.html` to have the same footer and header.
 
-### Adding title, description to page
+#### Adding title, description to page
 To add title and meta tags to a page use the following tags
 ```py
 {% block title %}lorem impsum {% endblock title %}
@@ -246,7 +227,7 @@ To generate secret key use `from django.core.management.utils import get_random_
 > [!NOTE]  
 > Make sure to add webhook endpoint during production via stripe, other wise you may not get the confirmations
 
-### Create a firebase credential file
+#### Create a firebase credential file
 
 > [!NOTE] 
 We'll be using firebase for persistent storage, to upload user files. Firebase is pre-configured as there are other firebase services developers may want to use. <br><br> You can also use any of the storage supported by [django-storages](https://github.com/jschneier/django-storages), if you don't want to use firebase.
@@ -269,17 +250,37 @@ base64 firebase-cred.json > encoded.txt
 ```
 Now copy the contents of encoded.txt and paste it in `FIREBASE_ENCODED="wedde"` variable
 
-### Tutorials
-  #### Looking to learn about adding payment to Django?
-  Check out this blog about [adding payment to django](https://dev.to/paul_freeman/adding-payment-to-django-app-4cc9). This should give you an overview about adding payments to Django.
+## 🔥 Contributing
 
-  #### Adding ESP
-  Check out this blog on adding ESP to help you supercharge [transactional emails](https://dev.to/paul_freeman/adding-esp-to-supercharge-your-django-email-4jkp)
+Want to help improve **Sports Connect**? Follow these steps:
 
-  #### Deploying to Vercel
-  Check out this blog for vercel deployment help [Django vercel deployment](https://dev.to/paul_freeman/deploying-django-website-to-vercel-19ed)
+1. **Fork** the repository.
+2. **Create a new branch** (`feature-name`).
+3. **Commit your changes** with clear messages.
+4. **Push to GitHub** and submit a **Pull Request**.
 
-## Images credits
-Images are taken from free to use sites such as 
-1. unsplash - https://unsplash.com/
-2. Pexels - https://www.pexels.com/
+Please review our [Contributing Guidelines](CONTRIBUTING.md) before submitting.
+
+---
+
+## 📜 License
+
+This project is licensed under the **GNU Affero General Public License (AGPL-3.0)**.  
+See the [LICENSE](LICENSE) file for full details.
+
+---
+
+## 📬 Contact
+
+For questions or collaboration, reach out to us at:  
+📧 **[email-here]**  
+🌐 **[Sports Connect Website](your-website-here)**  
+
+---
+
+## 👥 Team - Game Changers
+
+- **Matthew** – Product Owner, Database Developer  
+- **Alessandro** – Frontend Developer  
+- **Grayson** – Backend Developer  
+- **Zach** – Scrum Master, QA Engineer / Documentation Specialist  
