@@ -3,4 +3,5 @@ db.sqlite3
 media/
 .env
 firebase-cred.json
-encoded.txt"venv/" 
+encoded.txt
+venv/
