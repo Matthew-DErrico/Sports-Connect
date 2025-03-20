@@ -4,3 +4,4 @@ media/
 .env
 firebase-cred.json
 encoded.txt
+venv/
