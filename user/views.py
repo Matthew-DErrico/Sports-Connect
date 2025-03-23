@@ -24,10 +24,11 @@ def login_view(request):
     next_url = request.GET.get('next', '')
 
     if request.user.is_authenticated:
-        if next_url and next_url != request.path:
-            return redirect(next_url)
+        #if next_url and next_url != request.path:
+            #return redirect(next_url)
         
-        return redirect('home')
+        #return redirect('home')
+        return redirect('welcome')
 
     if request.method == "GET":
         return render(request, 'html/authentication/login.html', {
@@ -38,18 +39,20 @@ def login_view(request):
     password = request.POST["password"]
     user = authenticate(request, username=email, password=password)
     
-    if User.objects.filter(email=email, is_active=False).exists():
-        url = reverse('verification-alert') + f'?email={email}'
+    #if User.objects.filter(email=email, is_active=False).exists():
+        #url = reverse('verification-alert') + f'?email={email}'
         
-        return redirect(url)
+        #return redirect(url)
+        # is_active=False deals with user verification.
 
     if user is not None:
         login(request, user)
                 
-        if next_url and next_url != request.path:
-            return redirect(next_url)
+        #if next_url and next_url != request.path:
+            #return redirect(next_url)
         
-        return redirect('home')
+        #return redirect('home')
+        return redirect('welcome')
 
     return render(request, 'html/authentication/login.html', {'error': f'Invalid email or password'})
 
