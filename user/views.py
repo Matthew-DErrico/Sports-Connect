@@ -70,17 +70,25 @@ def signup_view(request):
        
         if form.is_valid():
             user = form.save(commit=False)
-            user.is_active = False
+            user.is_active = True
             user.save()
             
             username = form.cleaned_data.get('email')
             raw_password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=raw_password)
+            
+            #if user:
+                #login(request, user) # login user after signup
+                #return redirect('welcome')
+            #login(request, user)
+            print(f"User created")
+            return redirect('welcome')
+            
             # login(request, user) # don't login user unless the user has verified their email
-            send_token(username)
+            #send_token(username)
 
-            url = reverse('verification-alert') + f'?email={username}'
-            return redirect(url)
+            #url = reverse('verification-alert') + f'?email={username}'
+            #return redirect(url)
 
        
         return render(request, 'html/authentication/signup.html', context={'errors': form.errors})
@@ -143,6 +151,8 @@ def verify_email(request):
         return render(request, 'html/authentication/email-verification.html', context={'error': 'Unknown error occurred, request a new token'})
     
 
+def welcome_view(request):
+    return render(request, 'html/welcome.html')
 
 
 class ResetPasswordView(SuccessMessageMixin, PasswordResetView):

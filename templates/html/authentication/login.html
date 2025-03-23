@@ -15,7 +15,8 @@
                     tw-place-items-center tw-h-full tw-w-full">
         
 
-        <form action="{% url "login" %}{% if next_url %}?next={{next_url}}{% endif %}" 
+        <!-- <form action="{% url "login" %}{% if next_url %}?next={{next_url}}{% endif %}" -->
+        <form action="{% url "login" %}" method="POST"  
                     class="tw-w-[350px] tw-min-h-[350px] tw-bg-white
                         tw-rounded-xl tw-p-5 tw-text-center tw-flex tw-flex-col tw-gap-3 tw-shadow-xl
                         tw-place-content-center max-md:tw-w-full tw-place-items-center
