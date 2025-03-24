@@ -155,7 +155,9 @@ def verify_email(request):
     
 
 def welcome_view(request):
-    return render(request, 'html/welcome.html')
+    email = request.user.email
+    username = email.split('@')[0] if '@' in email else email
+    return render(request, 'html/welcome.html', {'username': username})
 
 
 class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
