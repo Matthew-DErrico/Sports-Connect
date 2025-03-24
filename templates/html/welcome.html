@@ -1,11 +1,38 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block content %}
-<div class="container mx-auto p-6">
-    <div class="text-center">
-        <h1 class="text-3xl font-bold">Welcome, {{ request.user.email }}!</h1>
-        <p class="mt-4 text-lg">This is your new home page.</p>
-        <img src="/static/images/placeholder.png" alt="Placeholder Image" class="mt-6 mx-auto w-64 h-64">
+<section class="tw-w-full tw-min-h-[100vh] tw-flex tw-flex-col tw-overflow-hidden tw-relative">
+    <div class="tw-w-full tw-h-full tw-p-[5%] tw-place-content-center tw-min-h-[100vh] 
+                tw-justify-around tw-place-items-center tw-flex max-lg:tw-flex-col">
+
+        <!-- Text Section -->
+        <div class="tw-flex tw-flex-col tw-place-content-center tw-max-w-[750px] tw-min-w-[550px] 
+                    max-md:tw-min-w-[300px] tw-text-center">
+            <h1 class="tw-text-5xl tw-font-semibold tw-uppercase tw-leading-normal max-md:tw-text-4xl 
+                    max-md:tw-leading-[70px]">
+                Welcome, {{ request.user.email }}!
+            </h1>
+            <div class="tw-mt-5 tw-p-2 tw-text-justify max-md:tw-max-w-full">
+                This is your new home page. Explore, interact, and enjoy your personalized content.
+            </div>
+            
+            <!-- Button (Optional) -->
+            <a href="#" class="btn tw-mt-5 tw-ml-auto 
+                               tw-duration-[0.3s] tw-transition-transform hover:tw-translate-x-2">
+                <span>Get Started</span>
+                <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
+
+        <!-- Image Section -->
+        <div class="tw-max-w-[550px] tw-place-content-center tw-place-items-center tw-mt-10 max-md:!tw-mt-5">
+            <div class="tw-rounded-lg tw-overflow-clip tw-shadow-xl ">
+                <img src="{% static './assets/images/welcome1.jpg' %}" alt="Welcome Image" class="tw-w-full tw-h-full">
+            </div>
+        </div>
+
     </div>
-</div>
+</section>
 {% endblock %}
