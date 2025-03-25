@@ -77,15 +77,12 @@ def signup_view(request):
             user.save()
             
             username = form.cleaned_data.get('email')
-            raw_password = form.cleaned_data.get('password')
+            raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             
-            #if user:
-                #login(request, user) # login user after signup
-                #return redirect('welcome')
-            #login(request, user)
-            print(f"User created")
-            return redirect('welcome')
+            if user is not None:
+                login(request, user) # login user after signup
+                return redirect('welcome')
             
             # login(request, user) # don't login user unless the user has verified their email
             #send_token(username)
@@ -93,7 +90,6 @@ def signup_view(request):
             #url = reverse('verification-alert') + f'?email={username}'
             #return redirect(url)
 
-       
         return render(request, 'html/authentication/signup.html', context={'errors': form.errors})
 
 
