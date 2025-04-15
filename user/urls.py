@@ -1,7 +1,7 @@
 from django.urls import path
 
 from .views import (login_view, signup_view, verify_email,
-                    verification_alert, verification_resend, logout_view, welcome_view, 
+                    verification_alert, verification_resend, logout_view, welcome_view, groups_view,
                     ResetPasswordView
                     )
 from django.contrib.auth import views as auth_views
@@ -25,4 +25,5 @@ urlpatterns = [
          name='password_reset_complete'),
 
     path('welcome/', welcome_view, name='welcome'),
+    path('groups/', groups_view, name='groups')
 ]

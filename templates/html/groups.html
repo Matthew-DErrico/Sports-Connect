@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="tw-w-full tw-min-h-[100vh] tw-flex tw-flex-col tw-items-center tw-p-[5%]">
+
+    <!-- The buttons at the top -->
+    <div class="tw-flex tw-justify-center tw-gap-4 tw-my-6">
+        <a href="{% url 'welcome' %}" class="btn tw-bg-gray-200 tw-py-2 tw-px-4 tw-rounded-lg hover:tw-bg-gray-300">
+            ← Welcome Page
+        </a>
+        <button class="btn tw-bg-blue-600 tw-text-white tw-py-2 tw-px-4 tw-rounded-lg hover:tw-bg-blue-700">
+            Create Group
+        </button>
+    </div>
+
+    <!-- 'Your Groups:' Section -->
+    <div class="tw-text-4xl tw-font-bold tw-text-center tw-mt-8 tw-mb-4">
+        Your Groups:
+    </div>
+
+    <!-- Groups will be put here later -->
+
+</section>
+{% endblock %}

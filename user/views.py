@@ -156,6 +156,11 @@ def welcome_view(request):
     return render(request, 'html/welcome.html', {'username': username})
 
 
+def groups_view(request):
+    username = request.user.email.split('@')[0] if request.user.is_authenticated else "User"
+    return render(request, 'html/groups.html', {'username': username})
+
+
 class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
     template_name = 'html/authentication/password-reset-request.html'
     email_template_name = 'html/authentication/password-reset-email.html'
