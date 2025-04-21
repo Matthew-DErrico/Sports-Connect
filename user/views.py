@@ -17,6 +17,9 @@ from django.contrib.messages.views import SuccessMessageMixin
 
 from .models import User
 from .forms import CustomUserCreationForm
+from .forms import GroupForm
+from .forms import Group
+from django.contrib.auth.decorators import login_required
 from utils.token_generator import send_token
 
 
@@ -149,6 +152,20 @@ def verify_email(request):
     except (jwt.DecodeError, Exception):
         return render(request, 'html/authentication/email-verification.html', context={'error': 'Unknown error occurred, request a new token'})
     
+
+@login_required
+def create_group(request):
+    if request.method == 'POST':
+        form = GroupForm(request.POST)
+        if form.is_valid():
+            group = form.save(commit=False)
+            group.owner = request.user  # Set current user as owner
+            group.save()
+            return redirect('groups')  # Replace with your actual group listing page name
+    else:
+        form = GroupForm()
+
+    return render(request, 'create_group.html', {'form': form})
 
 def welcome_view(request):
     email = request.user.email

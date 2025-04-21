@@ -7,6 +7,7 @@ from django.contrib.auth.base_user import BaseUserManager
 from utils.custommanagers import ActiveUsersManager
 from utils.constraint_fields import ContentTypeRestrictedFileField
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from django.conf import settings
 
 
 class CustomUserManager(BaseUserManager):
@@ -107,3 +108,18 @@ class User(AbstractBaseUser, PermissionsMixin):
         super().save(*args, **kwargs)
 
 
+class Group(models.Model):
+    COMPETITION_CHOICES = [
+        ('Competitive', 'Competitive'),
+        ('Casual', 'Casual'),
+    ]
+
+    name = models.CharField(max_length=100)
+    sport = models.CharField(max_length=50)
+    competition_level = models.CharField(max_length=15, choices=COMPETITION_CHOICES)
+    description = models.TextField()
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='owned_groups')
+
+    def __str__(self):
+        return f'{self.name} - {self.sport}'
+    

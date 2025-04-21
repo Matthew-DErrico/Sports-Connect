@@ -1,4 +1,5 @@
 from django.urls import path
+from . import views
 
 from .views import (login_view, signup_view, verify_email,
                     verification_alert, verification_resend, logout_view, welcome_view, groups_view,
@@ -25,5 +26,6 @@ urlpatterns = [
          name='password_reset_complete'),
 
     path('welcome/', welcome_view, name='welcome'),
-    path('groups/', groups_view, name='groups')
+    path('groups/', groups_view, name='groups'),
+    path('create-group/', views.create_group, name='create_group')
 ]
