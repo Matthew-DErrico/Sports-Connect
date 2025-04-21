@@ -60,9 +60,15 @@
                     <!-- Line 3 -->
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <div>Owner: {{ group.owner.email }}</div>
-                        <button style="background-color: #6c757d; color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: default;">
+                        <!-- <button style="background-color: #6c757d; color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: default;">
                             Edit
-                        </button>
+                        </button> -->
+                        <form method="post" action="{% url 'delete_group' group.id %}" onsubmit="return confirm('Are you sure you want to delete this group?');">
+                            {% csrf_token %}
+                            <button style="background-color: red; color: white; border: none; padding: 6px 12px; border-radius: 5px;">
+                                Delete Group
+                            </button>
+                        </form>
                     </div>
                 </div>
             {% endfor %}
@@ -99,7 +105,7 @@
                 </div>
             {% endfor %}
         {% else %}
-            <p style="margin-top: 20px; font-style: italic;">You don't own any groups yet.</p>
+            <p style="margin-top: 20px; font-style: italic;">Join some groups and they'll appear here!</p>
         {% endif %}
     </div>
 
@@ -136,7 +142,7 @@
                 </div>
             {% endfor %}
         {% else %}
-            <p style="margin-top: 20px; font-style: italic;">There are no groups yet.</p>
+            <p style="margin-top: 20px; font-style: italic;">There are no new groups for you to join.</p>
         {% endif %}
     </div>
 

@@ -21,6 +21,7 @@ from .forms import CustomUserCreationForm
 from .forms import GroupForm
 from .forms import Group
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from utils.token_generator import send_token
 
 
@@ -199,6 +200,14 @@ def join_group(request, group_id):
 def leave_group(request, group_id):
     group = get_object_or_404(Group, id=group_id)
     group.members.remove(request.user)
+    return redirect('groups')
+
+
+@login_required
+@require_POST
+def delete_group(request, group_id):
+    group = get_object_or_404(Group, id=group_id, owner=request.user)
+    group.delete()
     return redirect('groups')
 
 
