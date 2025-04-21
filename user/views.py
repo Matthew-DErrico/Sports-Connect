@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.urls import reverse_lazy
 from django.core.mail import send_mail
 from django.utils.encoding import force_str
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.http import require_http_methods
@@ -171,16 +171,35 @@ def create_group(request):
 
 @login_required
 def group_page(request):
-    print(f"Current user: {request.user} (ID: {request.user.id})")
+    owned_groups = Group.objects.filter(owner=request.user)
+    joined_groups = Group.objects.filter(members=request.user).exclude(owner=request.user)
+    all_groups = Group.objects.exclude(owner=request.user).exclude(members=request.user)
 
-    all_groups = Group.objects.all()
-    for g in all_groups:
+    """for g in all_groups:
         print(f"Group: {g.name}, Owner: {g.owner} (ID: {g.owner.id})")
 
     owned_groups = Group.objects.filter(owner=request.user)
-    print(f"Owned Groups: {owned_groups}")
+    print(f"Owned Groups: {owned_groups}")"""
 
-    return render(request, 'groups.html', {'owned_groups': owned_groups, 'all_groups': Group.objects.exclude(owner=request.user)})
+    return render(request, 'groups.html', {
+        'owned_groups': owned_groups,
+        'joined_groups': joined_groups,
+        'all_groups': all_groups
+    })
+
+
+@login_required
+def join_group(request, group_id):
+    group = get_object_or_404(Group, id=group_id)
+    group.members.add(request.user)
+    return redirect('groups')
+
+
+@login_required
+def leave_group(request, group_id):
+    group = get_object_or_404(Group, id=group_id)
+    group.members.remove(request.user)
+    return redirect('groups')
 
 
 def welcome_view(request):

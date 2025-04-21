@@ -27,5 +27,7 @@ urlpatterns = [
 
     path('welcome/', welcome_view, name='welcome'),
     path('groups/', groups_view, name='groups'),
-    path('create-group/', views.create_group, name='create_group')
+    path('create-group/', views.create_group, name='create_group'),
+    path('join-group/<int:group_id>/', views.join_group, name='join_group'),
+    path('leave-group/<int:group_id>/', views.leave_group, name='leave_group')
 ]

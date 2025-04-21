@@ -1,3 +1,26 @@
+<style>
+    .group-card {
+        border: 1px solid #999;
+        border-radius: 10px;
+        padding: 16px;
+        width: 100%;
+        min-width: 500px;
+        max-width: 700px;
+        background-color: #f0f8ff;
+        box-sizing: border-box;
+    }
+</style>
+
+<style>
+    .group-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        margin-top: 20px;
+    }
+</style>
+
 {% extends 'base.html' %}
 {% load static %}
 
@@ -19,58 +42,11 @@
         Your Groups:
     </div>
 
-    <!-- Group Card Block Example -->
-    <div style="display: flex; flex-direction: column; align-items: center; gap: 20px; margin-top: 20px;">
-
-        <!-- Dummy Group Card 1 -->
-        <div style="border: 1px solid #999; border-radius: 10px; padding: 16px; width: 80%; max-width: 700px; background-color: #f0f8ff;">
-            <!-- Line 1 -->
-            <div style="display: flex; justify-content: space-between; font-weight: bold;">
-                <div>Chess Club</div>
-                <div>Chess</div>
-                <div>Competitive</div>
-            </div>
-            <!-- Line 2 -->
-            <div style="margin-top: 10px; margin-bottom: 10px;">
-                Weekly meetups to practice strategy and compete in online tournaments.
-            </div>
-            <!-- Line 3 -->
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <div>Owner: alice@example.com</div>
-                <button style="background-color: #dc3545; color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer;">
-                    Leave
-                </button>
-            </div>
-        </div>
-
-        <!-- Dummy Group Card 2 -->
-        <div style="border: 1px solid #999; border-radius: 10px; padding: 16px; width: 80%; max-width: 700px; background-color: #f0f8ff;">
-            <!-- Line 1 -->
-            <div style="display: flex; justify-content: space-between; font-weight: bold;">
-                <div>Sunday Soccer</div>
-                <div>Soccer</div>
-                <div>Casual</div>
-            </div>
-            <!-- Line 2 -->
-            <div style="margin-top: 10px; margin-bottom: 10px;">
-                Pick-up soccer games every Sunday at the local park. Open to all skill levels!
-            </div>
-            <!-- Line 3 -->
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <div>Owner: bob@example.com</div>
-                <button style="background-color: #28a745; color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer;">
-                    Join
-                </button>
-            </div>
-        </div>
-
-    </div>
-
     <!-- Owned Groups -->
-    {% if owned_groups %}
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 20px; margin-top: 20px;">
+    <div class="group-wrapper">
+        {% if owned_groups %}
             {% for group in owned_groups %}
-                <div style="border: 1px solid #999; border-radius: 10px; padding: 16px; width: 155%; max-width: 700px; background-color: #f0f8ff;">
+                <div class="group-card" style="min-width: 500px">
                     <!-- Line 1 -->
                     <div style="display: flex; justify-content: space-between; font-weight: bold;">
                         <div>{{ group.name }}</div>
@@ -90,20 +66,53 @@
                     </div>
                 </div>
             {% endfor %}
-        </div>
-    {% else %}
-        <p style="margin-top: 20px; font-style: italic;">You don't own any groups yet.</p>
-    {% endif %}
+        {% else %}
+            <p style="margin-top: 20px; font-style: italic;">You don't own any groups yet.</p>
+        {% endif %}
+    </div>
+
+    <!-- Joined Groups -->
+    <div class="group-wrapper">
+        {% if joined_groups %}
+            {% for group in joined_groups %}
+                <div class="group-card" style="min-width: 500px">
+                    <!-- Line 1 -->
+                    <div style="display: flex; justify-content: space-between; font-weight: bold;">
+                        <div>{{ group.name }}</div>
+                        <div>{{ group.sport }}</div>
+                        <div>{{ group.competition_level }}</div>
+                    </div>
+                    <!-- Line 2 -->
+                    <div style="margin-top: 10px; margin-bottom: 10px;">
+                        {{ group.description }}
+                    </div>
+                    <!-- Line 3 -->
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div> Owner: {{ group.owner.email }}</div>
+                        <form method="post" action="{% url 'leave_group' group.id %}">
+                            {% csrf_token %}
+                            <button style="background-color: red; color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: default;">
+                                Leave
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p style="margin-top: 20px; font-style: italic;">You don't own any groups yet.</p>
+        {% endif %}
+    </div>
 
     <!-- 'Discover New Groups:' Section -->
     <div class="tw-text-4xl tw-font-bold tw-text-center tw-mt-8 tw-mb-4">
         Discover New Groups:
     </div>
 
-    {% if all_groups %}
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 20px; margin-top: 20px;">
+    <!-- All Unjoined Groups -->
+    <div class="group-wrapper">
+        {% if all_groups %}
             {% for group in all_groups %}
-                <div style="border: 1px solid #999; border-radius: 10px; padding: 16px; width: 180%; max-width: 700px; background-color: #f0f8ff;">
+                <div class="group-card" style="min-width: 500px">
                     <!-- Line 1 -->
                     <div style="display: flex; justify-content: space-between; font-weight: bold;">
                         <div>{{ group.name }}</div>
@@ -117,16 +126,19 @@
                     <!-- Line 3 -->
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <div>Owner: {{ group.owner.email }}</div>
-                        <button style="background-color: #6c757d; color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: default;">
-                            Edit
-                        </button>
+                        <form method="post" action="{% url 'join_group' group.id %}">
+                            {% csrf_token %}
+                            <button style="background-color: green; color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: default;">
+                                Join Group
+                            </button>
+                        </form>
                     </div>
                 </div>
             {% endfor %}
-        </div>
-    {% else %}
-        <p style="margin-top: 20px; font-style: italic;">There are no groups yet.</p>
-    {% endif %}
+        {% else %}
+            <p style="margin-top: 20px; font-style: italic;">There are no groups yet.</p>
+        {% endif %}
+    </div>
 
 </section>
 {% endblock %}
