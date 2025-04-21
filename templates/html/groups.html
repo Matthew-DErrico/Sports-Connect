@@ -5,7 +5,7 @@
         padding: 16px;
         width: 100%;
         min-width: 500px;
-        max-width: 700px;
+        max-width: 500px;
         background-color: #f0f8ff;
         box-sizing: border-box;
     }
@@ -60,9 +60,6 @@
                     <!-- Line 3 -->
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <div>Owner: {{ group.owner.email }}</div>
-                        <!-- <button style="background-color: #6c757d; color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: default;">
-                            Edit
-                        </button> -->
                         <form method="post" action="{% url 'delete_group' group.id %}" onsubmit="return confirm('Are you sure you want to delete this group?');">
                             {% csrf_token %}
                             <button style="background-color: red; color: white; border: none; padding: 6px 12px; border-radius: 5px;">
