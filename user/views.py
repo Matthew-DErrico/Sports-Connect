@@ -16,6 +16,7 @@ from django.contrib.auth.views import PasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
 
 from .models import User
+from .models import Group
 from .forms import CustomUserCreationForm
 from .forms import GroupForm
 from .forms import Group
@@ -161,11 +162,26 @@ def create_group(request):
             group = form.save(commit=False)
             group.owner = request.user  # Set current user as owner
             group.save()
-            return redirect('groups')  # Replace with your actual group listing page name
+            return redirect('groups')
     else:
         form = GroupForm()
 
     return render(request, 'create_group.html', {'form': form})
+
+
+@login_required
+def group_page(request):
+    print(f"Current user: {request.user} (ID: {request.user.id})")
+
+    all_groups = Group.objects.all()
+    for g in all_groups:
+        print(f"Group: {g.name}, Owner: {g.owner} (ID: {g.owner.id})")
+
+    owned_groups = Group.objects.filter(owner=request.user)
+    print(f"Owned Groups: {owned_groups}")
+
+    return render(request, 'groups.html', {'owned_groups': owned_groups, 'all_groups': Group.objects.exclude(owner=request.user)})
+
 
 def welcome_view(request):
     email = request.user.email

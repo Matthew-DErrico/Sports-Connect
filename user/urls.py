@@ -2,7 +2,7 @@ from django.urls import path
 from . import views
 
 from .views import (login_view, signup_view, verify_email,
-                    verification_alert, verification_resend, logout_view, welcome_view, groups_view,
+                    verification_alert, verification_resend, logout_view, welcome_view, group_page as groups_view,
                     ResetPasswordView
                     )
 from django.contrib.auth import views as auth_views

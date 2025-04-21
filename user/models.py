@@ -109,16 +109,11 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Group(models.Model):
-    COMPETITION_CHOICES = [
-        ('Competitive', 'Competitive'),
-        ('Casual', 'Casual'),
-    ]
-
     name = models.CharField(max_length=100)
-    sport = models.CharField(max_length=50)
-    competition_level = models.CharField(max_length=15, choices=COMPETITION_CHOICES)
+    sport = models.CharField(max_length=100)
+    competition_level = models.CharField(max_length=50, choices=[('Casual', 'Casual'), ('Competitive', 'Competitive')])
     description = models.TextField()
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='owned_groups')
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.name} - {self.sport}'
