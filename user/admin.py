@@ -8,6 +8,7 @@ from unfold.admin import ModelAdmin
 from unfold.forms import UserCreationForm, UserChangeForm
 
 from .models import User
+from .models import Group as UserGroup
 from .admingroupform import GroupAdminForm
 
 # Unregister the original Group admin.
@@ -21,9 +22,8 @@ class GroupAdmin(ModelAdmin):
     # Filter permissions horizontal as well.
     filter_horizontal = ['permissions']
 
+
 # Register the new Group ModelAdmin.
-
-
 class CustomUserCreationForm(UserCreationForm, ModelAdmin):
 
     class Meta(UserCreationForm.Meta):
@@ -36,7 +36,6 @@ class CustomUserChangeForm(UserChangeForm, ModelAdmin):
     class Meta(UserChangeForm.Meta):
         model = User
         # fields = ('name', )
-
 
 
 @admin.register(User)
@@ -86,3 +85,8 @@ class CustomUserAdmin(UserAdmin, ModelAdmin):
             form.base_fields["is_staff"].help_text = "Indicates that the user is staff and can login to admin dashboards, but needs to have explicit permissions to access other areas."
             form.base_fields["is_admin"].help_text = "Indicates that the user is staff and admin and can login to admin dashboards, has special permissions for such as blogs, but needs to have explicit permissions to access other areas."
         return form
+    
+
+@admin.register(UserGroup)
+class UserGroupAdmin(admin.ModelAdmin):
+    list_display = ['name', 'sport', 'competition_level', 'owner']

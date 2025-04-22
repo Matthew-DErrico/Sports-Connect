@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div style="
+max-width: 600px;
+margin: 60px auto; 
+padding: 20px;
+border: 2px solid #007BFF; 
+border-radius: 10px;
+background-color: #f9f9f9;
+box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+">
+<h2 style="text-align: center; margin-bottom: 20px;">Create a Group</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div style="text-align: center;">
+        <button type="submit" style="
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        ">
+            Create Group
+        </button>
+    </div>
+</form>
+</div>
+{% endblock %}
